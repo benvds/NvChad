@@ -22,10 +22,9 @@ M.options = {
 
 -- NvChad included plugin options & overrides
 M.plugins = {
-  plugin_status = {
-    bufferline = false,
-    neoformat = true,
-  },
+   status = {
+      bufferline = false, -- list open buffers up the top, easy switching too
+    },
    options = {
        lspconfig = {
          servers = {"html", "cssls", "tsserver"}
