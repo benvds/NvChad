@@ -103,15 +103,15 @@ local on_attach_typescript = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rf", ":TSLspRenameFile<CR>", {silent = true})
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ia", ":TSLspImportAll<CR>", {silent = true}) -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
 
-  -- vim.api.nvim_exec(
-  --     [[
-  --     augroup auto_format
-  --       autocmd!
-  --       autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 3000)
-  --     augroup end
-  --   ]],
-  --     false
-  -- )
+  vim.api.nvim_exec(
+    [[
+      augroup auto_format
+        autocmd!
+        autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 3000)
+      augroup end
+    ]],
+    false
+  )
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
