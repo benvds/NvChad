@@ -27,7 +27,7 @@ M.plugins = {
     },
    options = {
        lspconfig = {
-         servers = {"html", "cssls", "tsserver"}
+         servers = {"html", "cssls", "tsserver", "eslint"}
       },
    },
    -- To change the Packer `config` of a plugin that comes with NvChad,
@@ -37,7 +37,7 @@ M.plugins = {
    --              use "(custom.configs).my_func()" to call a function
    --              use "custom.blankline" to call a file
    default_plugin_config_replace = {
-     lspconfig = "custom.plugin_confs.lspconfig", 
+     lspconfig = "custom.plugin_confs.lspconfig",
    },
 }
 

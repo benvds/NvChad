@@ -44,70 +44,15 @@ local function on_attach_default(_, bufnr)
    buf_set_keymap("v", "<space>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 end
 
-local on_attach_typescript = function(client, bufnr)
+local on_attach_eslint = function(client, bufnr)
   -- disable tsserver formatting if you plan on formatting via null-ls
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
-
-  local ts_utils = require("nvim-lsp-ts-utils")
-
-  -- defaults
-  ts_utils.setup {
-      debug = false,
-      disable_commands = false,
-      enable_import_on_completion = false,
-      -- import all
-      import_all_timeout = 5000, -- ms
-      import_all_priorities = {
-          buffers = 4, -- loaded buffer names
-          buffer_content = 3, -- loaded buffer content
-          local_files = 2, -- git files or files with relative path markers
-          same_file = 1 -- add to existing import statement
-      },
-      import_all_scan_buffers = 100,
-      import_all_select_source = false,
-      -- eslint
-      eslint_enable_code_actions = true,
-      eslint_enable_disable_comments = true,
-      eslint_bin = "eslint_d",
-      eslint_enable_config_fallback = nil,
-      eslint_enable_diagnostics = true,
-      -- eslint_opts = {},
-      -- formatting
-      enable_formatting = true,
-      formatter = "eslint_d",
-      formatter_config_fallback = nil,
-      -- formatter_opts = {},
-
-      -- parentheses completion
-      complete_parens = true,
-      signature_help_in_parens = true,
-      -- update imports on file move
-      update_imports_on_move = false,
-      require_confirmation_on_move = false,
-      watch_dir = nil,
-      -- filter diagnostics
-      filter_out_diagnostics_by_severity = {},
-      filter_out_diagnostics_by_code = {}
-  }
-
-  -- required to fix code action ranges and filter diagnostics
-  ts_utils.setup_client(client)
-
-  -- no default maps, so you may want to define some here
-  -- local opts = { silent = true }
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", {silent = true})
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gq", ":TSLspFixCurrent<CR>", {silent = true})
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rf", ":TSLspRenameFile<CR>", {silent = true})
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ia", ":TSLspImportAll<CR>", {silent = true}) -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
-
+  client.resolved_capabilities.document_formatting = true
+  client.resolved_capabilities.document_range_formatting = true
   vim.api.nvim_exec(
     [[
       augroup auto_format
         autocmd!
-        autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 3000)
+        autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 5000)
       augroup end
     ]],
     false
@@ -134,14 +79,11 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local servers = require("core.utils").load_config().plugins.options.lspconfig.servers
 
 for _, lsp in ipairs(servers) do
-  if (lsp == "tsserver") then
-   require("null-ls").config({ debug = false })
-   nvim_lsp["null-ls"].setup { debug = false }
-
+  if (lsp == "eslint") then
    nvim_lsp[lsp].setup {
       on_attach = function(client, bufnr)
         on_attach_default(client, bufnr)
-        on_attach_typescript(client, bufnr)
+        on_attach_eslint(client, bufnr)
       end,
       capabilities = capabilities,
       flags = {
@@ -159,8 +101,6 @@ for _, lsp in ipairs(servers) do
    }
   end
 end
-
--- require("anyfile").setup_luaLsp(on_attach, capabilities) -- this will be removed soon after the custom hooks PR
 
 -- replace the default lsp diagnostic symbols
 local function lspSymbol(name, icon)

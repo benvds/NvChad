@@ -119,11 +119,6 @@ vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
 
 hooks.add("install_plugins", function(use)
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = { "nvim-lua/plenary.nvim"},
-  }
-  use {"jose-elias-alvarez/nvim-lsp-ts-utils", event = "BufRead" }
   use {"tpope/vim-unimpaired", opt = true} --, event = 'VimEnter'}  -- extra mappings like [q for quickfix navigations
   use {"tpope/vim-repeat",  event = 'BufModifiedSet'  } -- repeat plugin maps as a whole
   use {"tpope/vim-abolish", event = "CmdlineEnter"} -- replace variations of lower/upper case
