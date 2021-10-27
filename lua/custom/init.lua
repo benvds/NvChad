@@ -51,7 +51,6 @@ vim.o.breakindent = true -- Enable break indent
 -- vim.o.lazyredraw = true -- handy when running macros on big files
 vim.wo.signcolumn = "yes" -- always show the signcolumn
 -- vim.o.termguicolors = true -- using highlight attributes
-vim.o.smartcase = true -- or capital in search
 
 -- Personal settings
 
