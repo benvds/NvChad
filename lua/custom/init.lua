@@ -166,4 +166,8 @@ hooks.add("install_plugins", function(use)
       )
     end
   }
+  use {
+    "luukvbaal/stabilize.nvim",
+    config = function() require("stabilize").setup() end
+  }
 end)
