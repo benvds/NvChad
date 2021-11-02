@@ -62,6 +62,7 @@ vim.o.scrolloff = 5
 vim.o.colorcolumn = "80"
 vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorline same color as colorcolumn
 vim.o.cursorline = true
+vim.o.pumheight = 15
 -- vim.o.completeopt = "menuone,noselect" -- no auto selection, also show for 1 option
 -- vim.o.background = "dark"
 
@@ -162,6 +163,11 @@ hooks.add("install_plugins", function(use)
   }
   use {
     "luukvbaal/stabilize.nvim",
+    config = function() require("stabilize").setup() end
+  }
+  use {
+    "windwp/nvim-ts-autotag",
+    after = {"nvim-treesitter"},
     config = function() require("stabilize").setup() end
   }
 end)
