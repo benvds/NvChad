@@ -170,4 +170,41 @@ hooks.add("install_plugins", function(use)
     after = {"nvim-treesitter"},
     config = function() require("stabilize").setup() end
   }
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
+    after = {"plenary.nvim", "nvim-lspconfig"},
+    config = function()
+      require("null-ls").config({
+        sources = { require("null-ls").builtins.diagnostics.credo }
+      })
+      -- require("nvim-lspconfig")["null-ls"].setup({})
+      require("lspconfig")["null-ls"].setup({})
+    end,
+  }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {}
+      vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+        {silent = true, noremap = true}
+      )
+    end
+  }
 end)
