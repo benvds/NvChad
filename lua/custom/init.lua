@@ -207,4 +207,12 @@ hooks.add("install_plugins", function(use)
       )
     end
   }
+  use {
+    "Mofiqul/vscode.nvim",
+    after = {"nvim-treesitter"},
+    config = function()
+      vim.g.vscode_style = "light"
+      -- vim.cmd[[colorscheme vscode]]
+    end,
+  }
 end)
