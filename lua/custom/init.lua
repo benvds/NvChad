@@ -168,7 +168,9 @@ hooks.add("install_plugins", function(use)
   use {
     "windwp/nvim-ts-autotag",
     after = {"nvim-treesitter"},
-    config = function() require("stabilize").setup() end
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end
   }
   use {
     "jose-elias-alvarez/null-ls.nvim",
