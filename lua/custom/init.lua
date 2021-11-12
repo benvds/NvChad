@@ -128,6 +128,7 @@ hooks.add("install_plugins", function(use)
   use {
       "JoosepAlviste/nvim-ts-context-commentstring",
       after = {"nvim-treesitter"},
+      ft = { "typescript", "typescriptreact" },
       config = function()
         local present, ts_config = pcall(require, "nvim-treesitter.configs")
         if not present then
@@ -168,6 +169,7 @@ hooks.add("install_plugins", function(use)
   use {
     "windwp/nvim-ts-autotag",
     after = {"nvim-treesitter"},
+    ft = { "typescript", "typescriptreact" },
     config = function()
       require('nvim-ts-autotag').setup()
     end
@@ -180,9 +182,12 @@ hooks.add("install_plugins", function(use)
       require("null-ls").config({
         sources = { require("null-ls").builtins.diagnostics.credo }
       })
-      -- require("nvim-lspconfig")["null-ls"].setup({})
       require("lspconfig")["null-ls"].setup({})
     end,
+  }
+  use {
+    "jose-elias-alvarez/nvim-lsp-ts-utils",
+    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim"},
   }
   use {
     "folke/trouble.nvim",
@@ -217,4 +222,29 @@ hooks.add("install_plugins", function(use)
       -- vim.cmd[[colorscheme vscode]]
     end,
   }
+  -- not working
+  -- use {
+  --   "peitalin/vim-jsx-typescript",
+  --   after = {"nvim-treesitter"},
+  -- }
+  -- use {
+  --   "nvim-treesitter/playground",
+  --   after = {"nvim-treesitter"},
+  -- }
+  use({
+    "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
+    ft = { "lua", "typescript", "typescriptreact" },
+    after = {"nvim-treesitter"},
+    config = function()
+      -- require'nvim-treesitter.configs'.setup {
+      --     textsubjects = {
+      --         enable = true,
+      --         keymaps = {
+      --             ['.'] = 'textsubjects-smart',
+      --             [';'] = 'textsubjects-container-outer',
+      --         }
+      --     },
+      -- }
+    end
+  })
 end)
