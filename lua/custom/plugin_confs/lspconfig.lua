@@ -93,6 +93,31 @@ M.setup_lsp = function(on_attach, capabilities)
     end,
   }
 
+  -- json
+
+  lspconfig.jsonls.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+      vim.api.nvim_exec(
+        [[
+          augroup auto_format
+            autocmd!
+            autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 3000)
+          augroup end
+        ]],
+        false
+      )
+    end,
+    commands = {
+      Format = {
+        function()
+          vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+        end
+      }
+    }
+}
+
   -- eslint
 
   lspconfig.eslint.setup {
