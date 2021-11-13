@@ -127,7 +127,6 @@ hooks.add("install_plugins", function(use)
   -- comments for combined syntaxes like jsx / tsx
   use {
       "JoosepAlviste/nvim-ts-context-commentstring",
-      after = {"nvim-treesitter"},
       ft = { "typescript", "typescriptreact" },
       config = function()
         local present, ts_config = pcall(require, "nvim-treesitter.configs")
@@ -156,7 +155,7 @@ hooks.add("install_plugins", function(use)
     config = function()
       vim.api.nvim_exec(
           [[
-            autocmd vimenter * ++nested colorscheme solarized8
+            autocmd vimenter * ++nested colorscheme solarized8_high
           ]],
           false
       )
@@ -169,7 +168,6 @@ hooks.add("install_plugins", function(use)
   use {
     "windwp/nvim-ts-autotag",
     after = {"nvim-treesitter"},
-    ft = { "typescript", "typescriptreact" },
     config = function()
       require('nvim-ts-autotag').setup()
     end
@@ -233,7 +231,6 @@ hooks.add("install_plugins", function(use)
   -- }
   use({
     "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
-    ft = { "lua", "typescript", "typescriptreact" },
     after = {"nvim-treesitter"},
     config = function()
       -- require'nvim-treesitter.configs'.setup {
