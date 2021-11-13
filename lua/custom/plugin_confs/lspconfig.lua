@@ -3,7 +3,7 @@ local M = {}
 M.setup_lsp = function(on_attach, capabilities)
   local lspconfig = require "lspconfig"
 
-  local default_servers ={"html", "cssls"}
+  local default_servers ={"html", "cssls", "tailwindcss"}
 
   for _, lsp in ipairs(default_servers) do
     lspconfig[lsp].setup {
