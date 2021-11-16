@@ -25,6 +25,9 @@ end)
 --    map("n", "<leader>cc", "gg0vG$d", opt) -- example to delete the buffer
 --    .... many more mappings ....
 -- end)
+hooks.add("setup_mappings", function(map)
+   map("n", "<leader>s", "<cmd>lua require'hop'.hint_char1()<cr>", {}) -- example to delete the buffer
+end)
 
 -- To add new plugins, use the "install_plugin" hook,
 -- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
@@ -119,7 +122,7 @@ vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
 
 hooks.add("install_plugins", function(use)
-  use {"tpope/vim-unimpaired", opt = true} --, event = 'VimEnter'}  -- extra mappings like [q for quickfix navigations
+  use {"tpope/vim-unimpaired", event = 'BufRead'}  -- extra mappings like [q for quickfix navigations
   use {"tpope/vim-repeat",  event = 'BufModifiedSet'  } -- repeat plugin maps as a whole
   use {"tpope/vim-abolish", event = "CmdlineEnter"} -- replace variations of lower/upper case
   use {"machakann/vim-sandwich", event = "BufRead"} --, event = 'CursorMoved' } -- better add, replace, delete surrounds
@@ -220,6 +223,14 @@ hooks.add("install_plugins", function(use)
       -- vim.cmd[[colorscheme vscode]]
     end,
   }
+  use {
+    "folke/tokyonight.nvim",
+    after = {"nvim-treesitter"},
+  }
+  use {
+    "EdenEast/nightfox.nvim",
+    after = {"nvim-treesitter"},
+  }
   -- not working
   -- use {
   --   "peitalin/vim-jsx-typescript",
@@ -244,4 +255,14 @@ hooks.add("install_plugins", function(use)
       -- }
     end
   })
+
+  use {
+    "phaazon/hop.nvim",
+    branch = 'v1', -- optional but strongly recommended
+    event = "BufRead",
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup {}
+    end,
+  }
 end)
