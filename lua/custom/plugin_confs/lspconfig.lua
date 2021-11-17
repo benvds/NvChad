@@ -42,7 +42,7 @@ M.setup_lsp = function(on_attach, capabilities)
       ts_utils.setup {
         -- debug = false,
         -- disable_commands = false,
-        enable_import_on_completion = false,
+        enable_import_on_completion = true,
 
         -- -- import all
         -- import_all_timeout = 5000, -- ms
@@ -124,15 +124,7 @@ M.setup_lsp = function(on_attach, capabilities)
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       on_attach(client, bufnr)
-      vim.api.nvim_exec(
-        [[
-          augroup auto_format
-            autocmd!
-            autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 3000)
-          augroup end
-        ]],
-        false
-      )
+      vim.cmd("autocmd BufWritePre <buffer> EslintFixAll")
     end,
   }
 
