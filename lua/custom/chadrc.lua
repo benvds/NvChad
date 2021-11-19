@@ -12,6 +12,7 @@ M.options, M.ui, M.mappings, M.plugins = {}, {}, {}, {}
 -- examples of setting relative number & changing theme:
 
 M.options = {
+   clipboard = "",
    relativenumber = true,
    tabstop = 2,
 }
