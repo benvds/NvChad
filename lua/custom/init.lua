@@ -265,4 +265,5 @@ hooks.add("install_plugins", function(use)
       require'hop'.setup {}
     end,
   }
+  use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
 end)
