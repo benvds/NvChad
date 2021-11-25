@@ -266,4 +266,5 @@ hooks.add("install_plugins", function(use)
     end,
   }
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
+  use { "tpope/vim-scriptease" }
 end)
