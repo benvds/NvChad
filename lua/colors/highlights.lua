@@ -92,21 +92,21 @@ fg("IndentBlanklineChar", line)
 
 -- ]]
 
--- [[ LspDiagnostics
+-- [[ Diagnostic
 
 -- Errors
-fg("LspDiagnosticsSignError", red)
-fg("LspDiagnosticsSignWarning", yellow)
-fg("LspDiagnosticsVirtualTextError", red)
-fg("LspDiagnosticsVirtualTextWarning", yellow)
+fg("DiagnosticSignError", red)
+fg("DiagnosticSignWarn", yellow)
+fg("DiagnosticVirtualTextError", red)
+fg("DiagnosticVirtualTextWarning", yellow)
 
 -- Info
-fg("LspDiagnosticsSignInformation", green)
-fg("LspDiagnosticsVirtualTextInformation", green)
+fg("DiagnosticSignInfo", green)
+fg("DiagnosticVirtualTextInformation", green)
 
 -- Hints
-fg("LspDiagnosticsSignHint", purple)
-fg("LspDiagnosticsVirtualTextHint", purple)
+fg("DiagnosticSignHint", purple)
+fg("DiagnosticVirtualTextHint", purple)
 
 -- ]]
 
