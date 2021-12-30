@@ -37,7 +37,7 @@ M.setup_lsp = function(on_attach_orig, capabilities)
 
   lspconfig.elixirls.setup {
     on_attach = function(client, bufnr)
-      on_attach_orig(client, bufnr)
+      on_attach(client, bufnr)
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
     end,
