@@ -36,7 +36,11 @@ M.setup_lsp = function(on_attach_orig, capabilities)
   -- elixir
 
   lspconfig.elixirls.setup {
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      on_attach_orig(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+    end,
     capabilities = capabilities,
     cmd = { "/Users/benvds/.cache/elixir-ls/release/language_server.sh" }
   }

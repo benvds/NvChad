@@ -171,17 +171,14 @@ hooks.add("install_plugins", function(use)
       require('nvim-ts-autotag').setup()
     end
   }
-  -- use {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
-  --   -- after = {"plenary.nvim", "nvim-lspconfig"},
-  -- --   config = function()
-  -- --     require("null-ls").config({
-  -- --       sources = { require("null-ls").builtins.diagnostics.credo }
-  -- --     })
-  -- --     require("lspconfig")["null-ls"].setup({})
-  -- --   end,
-  -- }
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
+    after = {"plenary.nvim", "nvim-lspconfig"},
+    config = function()
+      require("custom.plugin_confs.null-ls").setup()
+    end,
+  }
   use {
     "jose-elias-alvarez/nvim-lsp-ts-utils",
     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim"},
