@@ -12,11 +12,6 @@ local hooks = require "core.hooks"
 -- or you can override the whole plugin config with 'chadrc' -> M.plugins.default_plugin_config_replace{}
 -- this will run your config instead of the NvChad config for the given plugin
 
-hooks.override("lsp", "publish_diagnostics", function(current)
-  current.virtual_text = false;
-  return current;
-end)
-
 -- To add new mappings, use the "setup_mappings" hook,
 -- you can set one or many mappings
 -- example below:
@@ -179,13 +174,13 @@ hooks.add("install_plugins", function(use)
   -- use {
   --   "jose-elias-alvarez/null-ls.nvim",
   --   requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
-  --   after = {"plenary.nvim", "nvim-lspconfig"},
-  --   config = function()
-  --     require("null-ls").config({
-  --       sources = { require("null-ls").builtins.diagnostics.credo }
-  --     })
-  --     require("lspconfig")["null-ls"].setup({})
-  --   end,
+  --   -- after = {"plenary.nvim", "nvim-lspconfig"},
+  -- --   config = function()
+  -- --     require("null-ls").config({
+  -- --       sources = { require("null-ls").builtins.diagnostics.credo }
+  -- --     })
+  -- --     require("lspconfig")["null-ls"].setup({})
+  -- --   end,
   -- }
   use {
     "jose-elias-alvarez/nvim-lsp-ts-utils",
@@ -271,4 +266,7 @@ hooks.add("install_plugins", function(use)
   use {'junegunn/fzf'}
   use {'kevinhwang91/nvim-bqf', ft = 'qf'}
   use { 'tpope/vim-fugitive' }
+
+  -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
+  use { 'elixir-editors/vim-elixir' }
 end)

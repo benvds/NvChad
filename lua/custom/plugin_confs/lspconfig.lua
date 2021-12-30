@@ -1,9 +1,23 @@
 local M = {}
 
-M.setup_lsp = function(on_attach, capabilities)
+local disable_virtual_text = function()
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      -- Enable signs
+      virtual_text = false,
+    }
+  )
+end
+
+M.setup_lsp = function(on_attach_orig, capabilities)
   local lspconfig = require "lspconfig"
 
   local default_servers ={"html", "cssls", "tailwindcss"}
+
+  local on_attach = function(client, bufnr)
+    on_attach_orig(client, bufnr)
+    disable_virtual_text()
+  end
 
   for _, lsp in ipairs(default_servers) do
     lspconfig[lsp].setup {
@@ -78,7 +92,7 @@ M.setup_lsp = function(on_attach, capabilities)
         -- filter_out_diagnostics_by_code = {},
 
         -- -- inlay hints
-        -- auto_inlay_hints = true,
+        auto_inlay_hints = false,
         -- inlay_hints_highlight = "Comment",
       }
 
@@ -127,6 +141,12 @@ M.setup_lsp = function(on_attach, capabilities)
       vim.cmd("autocmd BufWritePre <buffer> EslintFixAll")
     end,
   }
+
+
+-- hooks.override("lsp", "publish_diagnostics", function(current)
+--   current.virtual_text = false;
+--   return current;
+-- end)
 
 end
 
