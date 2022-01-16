@@ -261,8 +261,21 @@ hooks.add("install_plugins", function(use)
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   use { "tpope/vim-scriptease" } -- add :Verbose map etc
   use {'junegunn/fzf'}
-  use {'kevinhwang91/nvim-bqf', ft = 'qf'}
+  -- use {'kevinhwang91/nvim-bqf', ft = 'qf'}
   use { 'tpope/vim-fugitive' }
+
+  -- quickfix buffer is now modifiable, :w triggers a replacement, :write writes the buffer
+  use { 'stefandtw/quickfix-reflector.vim' }
+
+  use { 'ggVGc/vim-fuzzysearch' }
+
+  use { 'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu' }
+  use { 'kosayoda/nvim-lightbulb',
+    config = function()
+      vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+    end
+  }
 
   -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
   use { 'elixir-editors/vim-elixir' }
