@@ -1,5 +1,6 @@
 -- IMPORTANT NOTE : This is the user config, can be edited. Will be preserved if updated with internal updater
 -- This file is for NvChad options & tools, custom settings are split between here and 'lua/custom/init.lua'
+local userPlugins = require "custom.plugins"
 
 local M = {}
 M.options, M.ui, M.mappings, M.plugins = {}, {}, {}, {}
@@ -42,6 +43,7 @@ M.plugins = {
      treesitter = "custom.plugin_confs.treesitter",
      luasnip = "(custom.plugin_confs.luasnip).config()",
    },
+   install = userPlugins,
 }
 
 return M

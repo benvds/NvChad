@@ -1,7 +1,8 @@
 -- This is where you custom modules and plugins goes.
 -- See the wiki for a guide on how to extend NvChad
 
-local hooks = require "core.hooks"
+-- local hooks = require "core.hooks"
+local map = require("core.utils").map
 
 -- NOTE: To use this, make a copy with `cp example_init.lua init.lua`
 
@@ -20,9 +21,9 @@ local hooks = require "core.hooks"
 --    map("n", "<leader>cc", "gg0vG$d", opt) -- example to delete the buffer
 --    .... many more mappings ....
 -- end)
-hooks.add("setup_mappings", function(map)
-   map("n", "<leader>s", "<cmd>lua require'hop'.hint_char1()<cr>", {}) -- example to delete the buffer
-end)
+-- hooks.add("setup_mappings", function(map)
+map("n", "<leader>s", "<cmd>lua require'hop'.hint_char1()<cr>", {}) -- example to delete the buffer
+-- end)
 
 -- To add new plugins, use the "install_plugin" hook,
 -- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
@@ -117,166 +118,166 @@ vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
 
 
-hooks.add("install_plugins", function(use)
-  use {"tpope/vim-unimpaired", event = 'BufRead'}  -- extra mappings like [q for quickfix navigations
-  use {"tpope/vim-repeat",  event = 'BufModifiedSet'  } -- repeat plugin maps as a whole
-  use {"tpope/vim-abolish", event = "CmdlineEnter"} -- replace variations of lower/upper case
-  use {"machakann/vim-sandwich", event = "BufRead"} --, event = 'CursorMoved' } -- better add, replace, delete surrounds
-  use {"ntpeters/vim-better-whitespace", event = "BufRead"} --, event = 'CursorMoved' } -- highlight trailing whitespaces
-  -- comments for combined syntaxes like jsx / tsx
-  use {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      ft = { "typescript", "typescriptreact" },
-      config = function()
-        local present, ts_config = pcall(require, "nvim-treesitter.configs")
-        if not present then
-          print("nvim-treesitter.config not found")
-          return
-        end
+-- hooks.add("install_plugins", function(use)
+--   use {"tpope/vim-unimpaired", event = 'BufRead'}  -- extra mappings like [q for quickfix navigations
+--   use {"tpope/vim-repeat",  event = 'BufModifiedSet'  } -- repeat plugin maps as a whole
+--   use {"tpope/vim-abolish", event = "CmdlineEnter"} -- replace variations of lower/upper case
+--   use {"machakann/vim-sandwich", event = "BufRead"} --, event = 'CursorMoved' } -- better add, replace, delete surrounds
+--   use {"ntpeters/vim-better-whitespace", event = "BufRead"} --, event = 'CursorMoved' } -- highlight trailing whitespaces
+--   -- comments for combined syntaxes like jsx / tsx
+--   use {
+--       "JoosepAlviste/nvim-ts-context-commentstring",
+--       ft = { "typescript", "typescriptreact" },
+--       config = function()
+--         local present, ts_config = pcall(require, "nvim-treesitter.configs")
+--         if not present then
+--           print("nvim-treesitter.config not found")
+--           return
+--         end
 
-        ts_config.setup {
-           ensure_installed = {
-              "lua",
-           },
-           highlight = {
-              enable = true,
-              use_languagetree = true,
-           },
-           context_commentstring = {
-               enable = true
-           }
-        }
-      end
-  }
-  use {
-    "lifepillar/vim-solarized8",
-    --, event = "VimEnter"
-    config = function()
-      vim.api.nvim_exec(
-          [[
-            autocmd vimenter * ++nested colorscheme solarized8_high
-          ]],
-          false
-      )
-    end
-  }
-  use {
-    "luukvbaal/stabilize.nvim",
-    config = function() require("stabilize").setup() end
-  }
-  use {
-    "windwp/nvim-ts-autotag",
-    after = {"nvim-treesitter"},
-    config = function()
-      require('nvim-ts-autotag').setup()
-    end
-  }
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
-    after = {"plenary.nvim", "nvim-lspconfig"},
-    config = function()
-      require("custom.plugin_confs.null-ls").setup()
-    end,
-  }
-  use {
-    "jose-elias-alvarez/nvim-lsp-ts-utils",
-    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim"},
-  }
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {}
-      vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-        {silent = true, noremap = true}
-      )
-    end
-  }
-  use {
-    "Mofiqul/vscode.nvim",
-    after = {"nvim-treesitter"},
-    config = function()
-      vim.g.vscode_style = "light"
-      -- vim.cmd[[colorscheme vscode]]
-    end,
-  }
-  use {
-    "folke/tokyonight.nvim",
-    after = {"nvim-treesitter"},
-  }
-  use {
-    "EdenEast/nightfox.nvim",
-    after = {"nvim-treesitter"},
-  }
-  -- not working
-  -- use {
-  --   "peitalin/vim-jsx-typescript",
-  --   after = {"nvim-treesitter"},
-  -- }
-  -- use {
-  --   "nvim-treesitter/playground",
-  --   after = {"nvim-treesitter"},
-  -- }
-  use({
-    "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
-    after = {"nvim-treesitter"},
-    config = function()
-      -- require'nvim-treesitter.configs'.setup {
-      --     textsubjects = {
-      --         enable = true,
-      --         keymaps = {
-      --             ['.'] = 'textsubjects-smart',
-      --             [';'] = 'textsubjects-container-outer',
-      --         }
-      --     },
-      -- }
-    end
-  })
+--         ts_config.setup {
+--            ensure_installed = {
+--               "lua",
+--            },
+--            highlight = {
+--               enable = true,
+--               use_languagetree = true,
+--            },
+--            context_commentstring = {
+--                enable = true
+--            }
+--         }
+--       end
+--   }
+--   use {
+--     "lifepillar/vim-solarized8",
+--     --, event = "VimEnter"
+--     config = function()
+--       vim.api.nvim_exec(
+--           [[
+--             autocmd vimenter * ++nested colorscheme solarized8_high
+--           ]],
+--           false
+--       )
+--     end
+--   }
+--   use {
+--     "luukvbaal/stabilize.nvim",
+--     config = function() require("stabilize").setup() end
+--   }
+--   use {
+--     "windwp/nvim-ts-autotag",
+--     after = {"nvim-treesitter"},
+--     config = function()
+--       require('nvim-ts-autotag').setup()
+--     end
+--   }
+--   use {
+--     "jose-elias-alvarez/null-ls.nvim",
+--     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
+--     after = {"plenary.nvim", "nvim-lspconfig"},
+--     config = function()
+--       require("custom.plugin_confs.null-ls").setup()
+--     end,
+--   }
+--   use {
+--     "jose-elias-alvarez/nvim-lsp-ts-utils",
+--     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim"},
+--   }
+--   use {
+--     "folke/trouble.nvim",
+--     requires = "kyazdani42/nvim-web-devicons",
+--     config = function()
+--       require("trouble").setup {}
+--       vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+--         {silent = true, noremap = true}
+--       )
+--       vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
+--         {silent = true, noremap = true}
+--       )
+--       vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
+--         {silent = true, noremap = true}
+--       )
+--       vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+--         {silent = true, noremap = true}
+--       )
+--       vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+--         {silent = true, noremap = true}
+--       )
+--       vim.api.nvim_set_keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+--         {silent = true, noremap = true}
+--       )
+--     end
+--   }
+--   use {
+--     "Mofiqul/vscode.nvim",
+--     after = {"nvim-treesitter"},
+--     config = function()
+--       vim.g.vscode_style = "light"
+--       -- vim.cmd[[colorscheme vscode]]
+--     end,
+--   }
+--   use {
+--     "folke/tokyonight.nvim",
+--     after = {"nvim-treesitter"},
+--   }
+--   use {
+--     "EdenEast/nightfox.nvim",
+--     after = {"nvim-treesitter"},
+--   }
+--   -- not working
+--   -- use {
+--   --   "peitalin/vim-jsx-typescript",
+--   --   after = {"nvim-treesitter"},
+--   -- }
+--   -- use {
+--   --   "nvim-treesitter/playground",
+--   --   after = {"nvim-treesitter"},
+--   -- }
+--   use({
+--     "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
+--     after = {"nvim-treesitter"},
+--     config = function()
+--       -- require'nvim-treesitter.configs'.setup {
+--       --     textsubjects = {
+--       --         enable = true,
+--       --         keymaps = {
+--       --             ['.'] = 'textsubjects-smart',
+--       --             [';'] = 'textsubjects-container-outer',
+--       --         }
+--       --     },
+--       -- }
+--     end
+--   })
 
-  use {
-    "phaazon/hop.nvim",
-    branch = 'v1', -- optional but strongly recommended
-    event = "BufRead",
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup {}
-    end,
-  }
-  use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
-  use { "tpope/vim-scriptease" } -- add :Verbose map etc
-  use {'junegunn/fzf'}
-  -- use {'kevinhwang91/nvim-bqf', ft = 'qf'}
-  use { 'tpope/vim-fugitive' }
+--   use {
+--     "phaazon/hop.nvim",
+--     branch = 'v1', -- optional but strongly recommended
+--     event = "BufRead",
+--     config = function()
+--       -- you can configure Hop the way you like here; see :h hop-config
+--       require'hop'.setup {}
+--     end,
+--   }
+--   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
+--   use { "tpope/vim-scriptease" } -- add :Verbose map etc
+--   use {'junegunn/fzf'}
+--   -- use {'kevinhwang91/nvim-bqf', ft = 'qf'}
+--   use { 'tpope/vim-fugitive' }
 
-  -- quickfix buffer is now modifiable, :w triggers a replacement, :write writes the buffer
-  use { 'stefandtw/quickfix-reflector.vim' }
+--   -- quickfix buffer is now modifiable, :w triggers a replacement, :write writes the buffer
+--   use { 'stefandtw/quickfix-reflector.vim' }
 
-  use { 'ggVGc/vim-fuzzysearch' }
+--   use { 'ggVGc/vim-fuzzysearch' }
 
-  use { 'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu' }
-  use { 'kosayoda/nvim-lightbulb',
-    config = function()
-      vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-    end
-  }
+--   use { 'weilbith/nvim-code-action-menu',
+--     cmd = 'CodeActionMenu' }
+--   use { 'kosayoda/nvim-lightbulb',
+--     config = function()
+--       vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+--     end
+--   }
 
-  -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
-  use { 'elixir-editors/vim-elixir' }
-end)
+--   -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
+--   use { 'elixir-editors/vim-elixir' }
+-- end)

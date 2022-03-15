@@ -6,18 +6,8 @@ end
 
 vim.opt.completeopt = "menuone,noselect"
 
-cmp.setup {
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = {
-    border = "rounded",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  },
-  snippet = {
+local default = {
+   snippet = {
       expand = function(args)
          require("luasnip").lsp_expand(args.body)
       end,
@@ -47,7 +37,7 @@ cmp.setup {
          behavior = cmp.ConfirmBehavior.Replace,
          select = true,
       },
-      ["<Tab>"] = function(fallback)
+      ["<Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_next_item()
          elseif require("luasnip").expand_or_jumpable() then
@@ -55,8 +45,8 @@ cmp.setup {
          else
             fallback()
          end
-      end,
-      ["<S-Tab>"] = function(fallback)
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_prev_item()
          elseif require("luasnip").jumpable(-1) then
@@ -64,7 +54,7 @@ cmp.setup {
          else
             fallback()
          end
-      end,
+      end, { "i", "s" }),
    },
    sources = {
       { name = "nvim_lsp" },
@@ -74,3 +64,13 @@ cmp.setup {
       { name = "path" },
    },
 }
+
+local M = {}
+M.setup = function(override_flag)
+   if override_flag then
+      default = require("core.utils").tbl_override_req("nvim_cmp", default)
+   end
+   cmp.setup(default)
+end
+
+return M
