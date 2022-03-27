@@ -1,4 +1,4 @@
-print("hello from custom ts") -- not loaded :(
+-- print("hello from custom ts") -- not loaded :(
 
 local present, ts_config = pcall(require, "nvim-treesitter.configs")
 if not present then

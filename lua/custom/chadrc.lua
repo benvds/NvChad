@@ -19,7 +19,7 @@ M.options = {
 }
 
 -- M.ui = {
---   theme = "solarized8_high"
+--   theme = "dayfox"
 -- }
 
 -- NvChad included plugin options & overrides
@@ -41,7 +41,7 @@ M.plugins = {
    default_plugin_config_replace = {
      -- lspconfig = "custom.plugin_confs.lspconfig",
      treesitter = "custom.plugin_confs.treesitter",
-     luasnip = "(custom.plugin_confs.luasnip).config()",
+     -- luasnip = "(custom.plugin_confs.luasnip).config()",
    },
    install = userPlugins,
 }
