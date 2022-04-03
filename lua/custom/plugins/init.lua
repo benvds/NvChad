@@ -32,14 +32,15 @@ return {
   {
     "lifepillar/vim-solarized8",
     --, event = "VimEnter"
-    -- config = function()
+    config = function()
+      vim.cmd [[colorscheme solarized8]]
     --   vim.api.nvim_exec(
     --       [[
     --         autocmd vimenter * ++nested colorscheme solarized8_high
     --       ]],
     --       false
     --   )
-    -- end
+    end
   },
   {
     "luukvbaal/stabilize.nvim",
@@ -105,7 +106,7 @@ return {
     "EdenEast/nightfox.nvim",
     after = {"nvim-treesitter"},
     config = function()
-      vim.cmd [[colorscheme dayfox]]
+      -- vim.cmd [[colorscheme dayfox]]
       -- vim.api.nvim_exec(
       --     [[
       --       autocmd vimenter * ++nested colorscheme dayfox

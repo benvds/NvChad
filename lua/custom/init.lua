@@ -24,7 +24,7 @@ vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorlin
 vim.o.cursorline = true
 vim.o.pumheight = 15
 -- vim.o.completeopt = "menuone,noselect" -- no auto selection, also show for 1 option
--- vim.o.background = "dark"
+vim.o.background = "dark"
 vim.opt.wrap = false
 
 
