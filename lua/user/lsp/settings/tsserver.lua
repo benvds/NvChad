@@ -51,7 +51,7 @@ local opts = {
         -- eslint_opts = {},
 
         -- -- formatting
-        -- enable_formatting = false,
+        enable_formatting = false,
         -- formatter = "prettier",
         -- formatter_opts = {},
 
