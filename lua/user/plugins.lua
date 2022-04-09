@@ -250,8 +250,13 @@ return packer.startup(function(use)
 
   use { 'ggVGc/vim-fuzzysearch' }
 
-  use { 'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu' }
+  use {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+    config = function()
+      vim.g.code_action_menu_window_border = "rounded"
+    end,
+  }
   use { 'kosayoda/nvim-lightbulb',
     config = function()
       vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
