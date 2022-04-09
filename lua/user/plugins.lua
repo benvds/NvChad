@@ -61,7 +61,7 @@ return packer.startup(function(use)
 
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
-  use "lunarvim/darkplus.nvim"
+  -- use "lunarvim/darkplus.nvim"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -125,12 +125,14 @@ return packer.startup(function(use)
       end
   }
   use {
-    "lifepillar/vim-solarized8",
+    "ishan9299/nvim-solarized-lua",
     --, event = "VimEnter"
     config = function()
-      vim.cmd [[colorscheme solarized8]]
+      vim.cmd [[colorscheme solarized]]
     end
   }
+  use { "haystackandroid/stellarized" }
+  use { "cocopon/iceberg.vim" }
   use {
     "luukvbaal/stabilize.nvim",
     config = function() require("stabilize").setup() end

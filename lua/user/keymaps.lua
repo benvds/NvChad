@@ -89,9 +89,19 @@ vim.api.nvim_set_keymap("n", "N", "Nzzzv", {})
  -- esc twice to remove hlsearch
 vim.api.nvim_set_keymap("n", "<esc><esc>", ":nohlsearch<cr>", {})
 
---Remap for dealing with word wrap
+-- Remap for dealing with word wrap
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
 vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
+
+-- press esc to clear search highlight
+vim.api.nvim_set_keymap("n", "<Esc>", ":nohl<cr>", {})
+
+-- press esc to clear search highlight
+vim.api.nvim_set_keymap("n", "<c-s>", ":w<cr>", {})
+
+-- toggle comment linewise
+vim.api.nvim_set_keymap("n", "<leader>/", ":lua require('Comment.api').toggle_current_linewise()<CR>", {})
+vim.api.nvim_set_keymap("v", "<leader>/", ":lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", {})
 
 -- Highlight on yank
 vim.api.nvim_exec(

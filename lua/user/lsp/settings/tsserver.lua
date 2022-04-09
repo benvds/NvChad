@@ -1,3 +1,4 @@
+
 -- local default_schemas = nil
 -- local status_ok, tsserver_settings = pcall(require, "nlspsettings.tsserver")
 -- if status_ok then
