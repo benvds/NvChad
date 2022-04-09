@@ -42,6 +42,7 @@ local kind_icons = {
   Event = "",
   Operator = "",
   TypeParameter = "",
+  Copilot = "ﯙ",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
@@ -93,6 +94,9 @@ cmp.setup {
       "i",
       "s",
     }),
+    ['<C-g>'] = cmp.mapping(function(fallback)
+      vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+    end)
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
@@ -102,6 +106,7 @@ cmp.setup {
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
+        copilot = "[Copilot]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
@@ -111,6 +116,7 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" },
+    { name = "copilot" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },

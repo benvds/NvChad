@@ -70,6 +70,7 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-copilot"
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -265,6 +266,16 @@ return packer.startup(function(use)
 
   -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
   use { 'elixir-editors/vim-elixir' }
+
+  use {
+    "github/copilot.vim",
+    config = function()
+      vim.cmd([[
+        let g:copilot_no_tab_map = v:true
+        imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
+      ]])
+    end
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
