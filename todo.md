@@ -1,8 +1,9 @@
 # TODO
 
 - [ ] lsp
-  - [ ] typescript
+  - [x] typescript
   - [ ] html, css, tailwind
-  - [ ] null-ls eslint
-- [ ] look into dialog, like hover type
-- [ ] 
+  - [x] null-ls eslint
+- [x] look into dialog, like hover type
+- [ ] elixir
+- [ ] rails
