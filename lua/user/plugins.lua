@@ -129,7 +129,7 @@ return packer.startup(function(use)
     "ishan9299/nvim-solarized-lua",
     --, event = "VimEnter"
     config = function()
-      vim.cmd [[colorscheme solarized]]
+      -- vim.cmd [[colorscheme solarized]]
     end
   }
   use { "haystackandroid/stellarized" }
@@ -193,6 +193,10 @@ return packer.startup(function(use)
   use {
     "folke/tokyonight.nvim",
     after = {"nvim-treesitter"},
+    config = function()
+      vim.g.tokyonight_day_brightness = 0.1
+      vim.cmd [[colorscheme tokyonight]]
+    end,
   }
   use {
     "EdenEast/nightfox.nvim",
@@ -269,15 +273,15 @@ return packer.startup(function(use)
   -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
   use { 'elixir-editors/vim-elixir' }
 
-  use {
-    "github/copilot.vim",
-    config = function()
-      vim.cmd([[
-        let g:copilot_no_tab_map = v:true
-        imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
-      ]])
-    end
-  }
+  -- use {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     vim.cmd([[
+  --       let g:copilot_no_tab_map = v:true
+  --       imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
+  --     ]])
+  --   end
+  -- }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
