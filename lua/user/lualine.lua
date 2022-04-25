@@ -72,8 +72,11 @@ lualine.setup({
 		always_divide_middle = true,
 	},
 	sections = {
-		lualine_a = { branch, diagnostics },
-		lualine_b = { mode },
+		lualine_a = {{
+      "filename",
+      show_filename_only = true,   -- Shows shortened relative path when set to false
+    }},
+		lualine_b = { branch },
 		lualine_c = {},
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, spaces, "encoding", filetype },
