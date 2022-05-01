@@ -94,6 +94,7 @@ return packer.startup(function(use)
 
   -- Git
   use "lewis6991/gitsigns.nvim"
+  use "tpope/vim-fugitive"
 
   use {"tpope/vim-unimpaired", event = 'BufRead'}  -- extra mappings like [q for quickfix navigations
   use {"tpope/vim-repeat",  event = 'BufModifiedSet' } -- repeat plugin maps as a whole
