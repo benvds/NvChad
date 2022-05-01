@@ -196,6 +196,7 @@ return packer.startup(function(use)
     after = {"nvim-treesitter"},
     config = function()
       vim.g.tokyonight_day_brightness = 0.1
+      vim.g.tokyonight_style = "storm"
       vim.cmd [[colorscheme tokyonight]]
     end,
   }
