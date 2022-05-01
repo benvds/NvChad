@@ -44,7 +44,15 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorline same color as colorcolumn
+-- TODO: somehow a delete or replace move into the system register, f-ing things up
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function(args)
+        vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorline same color as colorcolumn
+    end,
+    desc = "Link ColorColumn and CursorLine highlight on ColorScheme change",
+})
  
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
