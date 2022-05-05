@@ -90,6 +90,23 @@ return packer.startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
+  use {
+    'RRethy/nvim-treesitter-textsubjects',
+    after = "nvim-treesitter",
+    config = function()
+      require('nvim-treesitter.configs').setup {
+          textsubjects = {
+              enable = true,
+              prev_selection = ',', -- (Optional) keymap to select the previous selection
+              keymaps = {
+                  ['.'] = 'textsubjects-smart',
+                  [';'] = 'textsubjects-container-outer',
+                  ['i;'] = 'textsubjects-container-inner',
+              },
+          },
+      }
+    end
+  }
   -- use "JoosepAlviste/nvim-ts-context-commentstring"
 
   -- Git
@@ -222,21 +239,21 @@ return packer.startup(function(use)
   --   "nvim-treesitter/playground",
   --   after = {"nvim-treesitter"},
   -- }
-  use {
-    "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
-    after = {"nvim-treesitter"},
-    config = function()
-      -- require'nvim-treesitter.configs'.setup {
-      --     textsubjects = {
-      --         enable = true,
-      --         keymaps = {
-      --             ['.'] = 'textsubjects-smart',
-      --             [';'] = 'textsubjects-container-outer',
-      --         }
-      --     },
-      -- }
-    end
-  }
+  -- use {
+  --   "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
+  --   after = {"nvim-treesitter"},
+  --   config = function()
+  --     -- require'nvim-treesitter.configs'.setup {
+  --     --     textsubjects = {
+  --     --         enable = true,
+  --     --         keymaps = {
+  --     --             ['.'] = 'textsubjects-smart',
+  --     --             [';'] = 'textsubjects-container-outer',
+  --     --         }
+  --     --     },
+  --     -- }
+  --   end
+  -- }
   use {
     "rlane/pounce.nvim",
     event = "BufRead",
