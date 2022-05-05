@@ -95,15 +95,15 @@ return packer.startup(function(use)
     after = "nvim-treesitter",
     config = function()
       require('nvim-treesitter.configs').setup {
-          textsubjects = {
-              enable = true,
-              prev_selection = ',', -- (Optional) keymap to select the previous selection
-              keymaps = {
-                  ['.'] = 'textsubjects-smart',
-                  [';'] = 'textsubjects-container-outer',
-                  ['i;'] = 'textsubjects-container-inner',
-              },
+        textsubjects = {
+          enable = true,
+          prev_selection = ',', -- (Optional) keymap to select the previous selection
+          keymaps = {
+            ['.'] = 'textsubjects-smart',
+            [';'] = 'textsubjects-container-outer',
+            ['i;'] = 'textsubjects-container-inner',
           },
+        },
       }
     end
   }
@@ -113,35 +113,35 @@ return packer.startup(function(use)
   use "lewis6991/gitsigns.nvim"
   use "tpope/vim-fugitive"
 
-  use {"tpope/vim-unimpaired", event = 'BufRead'}  -- extra mappings like [q for quickfix navigations
-  use {"tpope/vim-repeat",  event = 'BufModifiedSet' } -- repeat plugin maps as a whole
-  use {"tpope/vim-abolish", event = "CmdlineEnter"} -- replace variations of lower/upper case
-  use {"machakann/vim-sandwich", event = "BufRead"} --, event = 'CursorMoved' } -- better add, replace, delete surrounds
-  use {"ntpeters/vim-better-whitespace", event = "BufRead"} --, event = 'CursorMoved' } -- highlight trailing whitespaces
+  use { "tpope/vim-unimpaired", event = 'BufRead' } -- extra mappings like [q for quickfix navigations
+  use { "tpope/vim-repeat", event = 'BufModifiedSet' } -- repeat plugin maps as a whole
+  use { "tpope/vim-abolish", event = "CmdlineEnter" } -- replace variations of lower/upper case
+  use { "machakann/vim-sandwich", event = "BufRead" } --, event = 'CursorMoved' } -- better add, replace, delete surrounds
+  use { "ntpeters/vim-better-whitespace", event = "BufRead" } --, event = 'CursorMoved' } -- highlight trailing whitespaces
   -- comments for combined syntaxes like jsx / tsx
   use {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      ft = { "typescript", "typescriptreact" },
-      config = function()
-        local present, ts_config = pcall(require, "nvim-treesitter.configs")
-        if not present then
-          print("nvim-treesitter.config not found")
-          return
-        end
-
-        ts_config.setup {
-           ensure_installed = {
-              "lua",
-           },
-           highlight = {
-              enable = true,
-              use_languagetree = true,
-           },
-           context_commentstring = {
-               enable = true
-           }
-        }
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    ft = { "typescript", "typescriptreact" },
+    config = function()
+      local present, ts_config = pcall(require, "nvim-treesitter.configs")
+      if not present then
+        print("nvim-treesitter.config not found")
+        return
       end
+
+      ts_config.setup {
+        ensure_installed = {
+          "lua",
+        },
+        highlight = {
+          enable = true,
+          use_languagetree = true,
+        },
+        context_commentstring = {
+          enable = true
+        }
+      }
+    end
   }
   use {
     "ishan9299/nvim-solarized-lua",
@@ -158,7 +158,7 @@ return packer.startup(function(use)
   }
   use {
     "windwp/nvim-ts-autotag",
-    after = {"nvim-treesitter"},
+    after = { "nvim-treesitter" },
     config = function()
       require('nvim-ts-autotag').setup()
     end
@@ -173,7 +173,7 @@ return packer.startup(function(use)
   -- }
   use {
     "jose-elias-alvarez/nvim-lsp-ts-utils",
-    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim"},
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim" },
   }
   -- {
   --   "folke/trouble.nvim",
@@ -202,7 +202,7 @@ return packer.startup(function(use)
   -- }
   use {
     "Mofiqul/vscode.nvim",
-    after = {"nvim-treesitter"},
+    after = { "nvim-treesitter" },
     config = function()
       vim.g.vscode_style = "light"
       -- vim.cmd[[colorscheme vscode]]
@@ -210,7 +210,7 @@ return packer.startup(function(use)
   }
   use {
     "folke/tokyonight.nvim",
-    after = {"nvim-treesitter"},
+    after = { "nvim-treesitter" },
     config = function()
       vim.g.tokyonight_day_brightness = 0.1
       vim.g.tokyonight_style = "storm"
@@ -219,7 +219,7 @@ return packer.startup(function(use)
   }
   use {
     "EdenEast/nightfox.nvim",
-    after = {"nvim-treesitter"},
+    after = { "nvim-treesitter" },
     config = function()
       -- vim.cmd [[colorscheme nightfox]]
       -- vim.api.nvim_exec(
@@ -267,7 +267,7 @@ return packer.startup(function(use)
   }
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   use { "tpope/vim-scriptease" } -- add :Verbose map etc
-  use {'junegunn/fzf'}
+  use { 'junegunn/fzf' }
   -- {'kevinhwang91/nvim-bqf', ft = 'qf'}
   -- { 'tpope/vim-fugitive' }
 
@@ -304,20 +304,20 @@ return packer.startup(function(use)
     -- end
   }
 
-use {
-  "zbirenbaum/copilot.lua",
-  after = { "copilot.vim" },
-  -- event = {"VimEnter"},
-  -- config = function()
-  --   vim.defer_fn(function()
-  --     require("copilot").setup()
-  --   end, 100)
-  -- end,
-}
+  use {
+    "zbirenbaum/copilot.lua",
+    after = { "copilot.vim" },
+    -- event = {"VimEnter"},
+    -- config = function()
+    --   vim.defer_fn(function()
+    --     require("copilot").setup()
+    --   end, 100)
+    -- end,
+  }
   use {
     "zbirenbaum/copilot-cmp",
     after = { "copilot.lua", "nvim-cmp" },
-}
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

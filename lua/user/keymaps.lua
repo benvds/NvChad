@@ -86,12 +86,12 @@ vim.api.nvim_set_keymap("n", "Y", "y$", {})
 vim.api.nvim_set_keymap("n", "n", "nzzzv", {})
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", {})
 
- -- esc twice to remove hlsearch
+-- esc twice to remove hlsearch
 vim.api.nvim_set_keymap("n", "<esc><esc>", ":nohlsearch<cr>", {})
 
 -- Remap for dealing with word wrap
-vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- press esc to clear search highlight
 vim.api.nvim_set_keymap("n", "<Esc>", ":nohl<cr>", {})
@@ -105,14 +105,14 @@ vim.api.nvim_set_keymap("v", "<leader>/", ":lua require('Comment.api').toggle_li
 
 -- Highlight on yank
 vim.api.nvim_exec(
-    [[
-      augroup YankHighlight
-        autocmd!
-        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-      augroup end
-    ]],
-    false
+  [[
+    augroup YankHighlight
+      autocmd!
+      autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+    augroup end
+  ]],
+  false
 )
 
 -- Y yank until the end of line
-vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
+vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
