@@ -238,12 +238,14 @@ return packer.startup(function(use)
     end
   }
   use {
-    "phaazon/hop.nvim",
-    branch = 'v1', -- optional but strongly recommended
+    "rlane/pounce.nvim",
     event = "BufRead",
     config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup {}
+      -- require("pounce").setup({})
+      vim.api.nvim_set_keymap("n", "s", "<cmd>Pounce<CR>", {})
+      vim.api.nvim_set_keymap("n", "S", "<cmd>PounceRepeat<CR>", {})
+      vim.api.nvim_set_keymap("v", "s", "<cmd>Pounce<CR>", {})
+      vim.api.nvim_set_keymap("o", "gs", "<cmd>Pounce<CR>", {}) -- 's' is used by vim-surround
     end,
   }
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
