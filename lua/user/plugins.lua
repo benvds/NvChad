@@ -121,13 +121,37 @@ return packer.startup(function(use)
   -- comments for combined syntaxes like jsx / tsx
   use {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    ft = { "typescript", "typescriptreact" },
     config = function()
       local present, ts_config = pcall(require, "nvim-treesitter.configs")
       if not present then
         print("nvim-treesitter.config not found")
         return
       end
+
+      require 'nvim-treesitter.configs'.setup {
+        context_commentstring = {
+          enable = true,
+          enable_autocmd = false,
+        }
+      }
+
+      require('Comment').setup {
+        pre_hook = function(ctx)
+          local U = require 'Comment.utils'
+
+          local location = nil
+          if ctx.ctype == U.ctype.block then
+            location = require('ts_context_commentstring.utils').get_cursor_location()
+          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+            location = require('ts_context_commentstring.utils').get_visual_start_location()
+          end
+
+          return require('ts_context_commentstring.internal').calculate_commentstring {
+            key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+            location = location,
+          }
+        end,
+      }
 
       ts_config.setup {
         ensure_installed = {
@@ -145,9 +169,15 @@ return packer.startup(function(use)
   }
   use {
     "ishan9299/nvim-solarized-lua",
-    --, event = "VimEnter"
+    event = "VimEnter",
     config = function()
       vim.cmd [[colorscheme solarized]]
+      -- vim.api.nvim_exec(
+      --   [[
+      --       autocmd vimenter * ++nested colorscheme solarized
+      --     ]],
+      --   false
+      -- )
     end
   }
   use { "haystackandroid/stellarized" }
@@ -215,20 +245,26 @@ return packer.startup(function(use)
       vim.g.tokyonight_day_brightness = 0.1
       vim.g.tokyonight_style = "storm"
       -- vim.cmd [[colorscheme tokyonight]]
+      -- vim.api.nvim_exec(
+      --   [[
+      --       autocmd vimenter * ++nested colorscheme tokyonight
+      --     ]],
+      --   false
+      -- )
     end,
   }
   use {
     "EdenEast/nightfox.nvim",
     after = { "nvim-treesitter" },
-    config = function()
-      -- vim.cmd [[colorscheme nightfox]]
-      -- vim.api.nvim_exec(
-      --     [[
-      --       autocmd vimenter * ++nested colorscheme dayfox
-      --     ]],
-      --     false
-      -- )
-    end
+    -- config = function()
+    --   vim.cmd [[colorscheme nightfox]]
+    --   vim.api.nvim_exec(
+    --     [[
+    --         autocmd vimenter * ++nested colorscheme nightfox
+    --       ]],
+    --     false
+    --   )
+    -- end
   }
   -- not working
   -- {
@@ -268,13 +304,16 @@ return packer.startup(function(use)
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   use { "tpope/vim-scriptease" } -- add :Verbose map etc
   use { 'junegunn/fzf' }
-  -- {'kevinhwang91/nvim-bqf', ft = 'qf'}
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function()
+    -- require('bqf').setup({ magic_window = false })
+  end
+  }
   -- { 'tpope/vim-fugitive' }
 
   -- quickfix buffer is now modifiable, :w triggers a replacement, :write writes the buffer
-  use { 'stefandtw/quickfix-reflector.vim' }
+  -- use { 'stefandtw/quickfix-reflector.vim' }
 
-  use { 'ggVGc/vim-fuzzysearch' }
+  -- use { 'ggVGc/vim-fuzzysearch' }
 
   use {
     'weilbith/nvim-code-action-menu',
@@ -290,34 +329,32 @@ return packer.startup(function(use)
       vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
     end
   }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 
   -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
   use { 'elixir-editors/vim-elixir' }
 
-  use {
-    "github/copilot.vim",
-    -- config = function()
-    --   vim.cmd([[
-    --     let g:copilot_no_tab_map = v:true
-    --     imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
-    --   ]])
-    -- end
-  }
-
-  use {
-    "zbirenbaum/copilot.lua",
-    after = { "copilot.vim" },
-    -- event = {"VimEnter"},
-    -- config = function()
-    --   vim.defer_fn(function()
-    --     require("copilot").setup()
-    --   end, 100)
-    -- end,
-  }
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua", "nvim-cmp" },
-  }
+  -- use {
+  --   "github/copilot.vim",
+  -- }
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   after = { "copilot.vim" },
+  -- }
+  -- use {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua", "nvim-cmp" },
+  -- }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

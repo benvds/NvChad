@@ -40,6 +40,7 @@ lsp_installer.on_server_ready(function(server)
     end
     opts.settings = {
       format = { enable = true }, -- this will enable formatting
+      packageManager = "pnpm",
     }
 
     -- vim.cmd("autocmd BufWritePre <buffer> EslintFixAll")

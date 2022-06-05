@@ -95,6 +95,10 @@ local mappings = {
   },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  ["Y"] = {
+    "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+    "Workspace Symbols",
+  },
 
   p = {
     name = "Packer",
@@ -159,17 +163,17 @@ local mappings = {
       "Workspace Symbols",
     },
   },
-  s = {
-    name = "Search",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-    R = { "<cmd>Telescope registers<cr>", "Registers" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-    C = { "<cmd>Telescope commands<cr>", "Commands" },
-  },
+  -- s = {
+  --   name = "Search",
+  --   b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+  --   c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+  --   h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+  --   M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+  --   r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+  --   R = { "<cmd>Telescope registers<cr>", "Registers" },
+  --   k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+  --   C = { "<cmd>Telescope commands<cr>", "Commands" },
+  -- },
 
   t = {
     name = "Terminal",
@@ -180,6 +184,16 @@ local mappings = {
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+  },
+
+  x = {
+    name = "Trouble",
+    xx = { "<cmd>Trouble<cr>", "Trouble" },
+    xw = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+    xd = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics" },
+    xl = { "<cmd>Trouble loclist<cr>", "Loclist" },
+    xq = { "<cmd>Trouble quickfix<cr>", "Quickfix list" },
+    gR = { "<cmd>Trouble lsp_references<cr>", "Lsp References" },
   },
 }
 

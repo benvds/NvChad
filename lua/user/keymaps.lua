@@ -41,7 +41,7 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Insert --
 -- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
+-- keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -116,3 +116,7 @@ vim.api.nvim_exec(
 
 -- Y yank until the end of line
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
+
+-- disable F1 for help, use as ESC
+vim.api.nvim_set_keymap("n", "F1", "<ESC>", {})
+vim.api.nvim_set_keymap("i", "F1", "<ESC>", {})
