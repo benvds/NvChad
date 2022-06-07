@@ -42,8 +42,6 @@ lsp_installer.on_server_ready(function(server)
       format = { enable = true }, -- this will enable formatting
       packageManager = "pnpm",
     }
-
-    -- vim.cmd("autocmd BufWritePre <buffer> EslintFixAll")
   end
 
   -- This setup() function is exactly the same as lspconfig's setup function.

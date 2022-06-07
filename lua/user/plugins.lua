@@ -59,10 +59,6 @@ return packer.startup(function(use)
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
   use "folke/which-key.nvim"
 
-  -- Colorschemes
-  -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
-  -- use "lunarvim/darkplus.nvim"
-
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -107,8 +103,6 @@ return packer.startup(function(use)
       }
     end
   }
-  -- use "JoosepAlviste/nvim-ts-context-commentstring"
-
   -- Git
   use "lewis6991/gitsigns.nvim"
   use "tpope/vim-fugitive"
@@ -167,21 +161,7 @@ return packer.startup(function(use)
       }
     end
   }
-  use {
-    "ishan9299/nvim-solarized-lua",
-    event = "VimEnter",
-    config = function()
-      vim.cmd [[colorscheme solarized]]
-      -- vim.api.nvim_exec(
-      --   [[
-      --       autocmd vimenter * ++nested colorscheme solarized
-      --     ]],
-      --   false
-      -- )
-    end
-  }
-  use { "haystackandroid/stellarized" }
-  use { "cocopon/iceberg.vim" }
+
   use {
     "luukvbaal/stabilize.nvim",
     config = function() require("stabilize").setup() end
@@ -193,14 +173,6 @@ return packer.startup(function(use)
       require('nvim-ts-autotag').setup()
     end
   }
-  -- use {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
-  --   after = {"plenary.nvim", "nvim-lspconfig"},
-  --   config = function()
-  --     require("custom.plugin_confs.null-ls").setup()
-  --   end,
-  -- }
   use {
     "jose-elias-alvarez/nvim-lsp-ts-utils",
     requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim" },
@@ -230,13 +202,21 @@ return packer.startup(function(use)
   --     )
   --   end
   -- }
+
+  -- coloschemes
+
+  use {
+    "ishan9299/nvim-solarized-lua",
+    event = "VimEnter",
+    config = function()
+      vim.cmd [[colorscheme solarized]]
+    end
+  }
+  use { "haystackandroid/stellarized" }
+  use { "cocopon/iceberg.vim" }
   use {
     "Mofiqul/vscode.nvim",
     after = { "nvim-treesitter" },
-    config = function()
-      vim.g.vscode_style = "light"
-      -- vim.cmd[[colorscheme vscode]]
-    end,
   }
   use {
     "folke/tokyonight.nvim",
@@ -244,52 +224,13 @@ return packer.startup(function(use)
     config = function()
       vim.g.tokyonight_day_brightness = 0.1
       vim.g.tokyonight_style = "storm"
-      -- vim.cmd [[colorscheme tokyonight]]
-      -- vim.api.nvim_exec(
-      --   [[
-      --       autocmd vimenter * ++nested colorscheme tokyonight
-      --     ]],
-      --   false
-      -- )
     end,
   }
   use {
     "EdenEast/nightfox.nvim",
     after = { "nvim-treesitter" },
-    -- config = function()
-    --   vim.cmd [[colorscheme nightfox]]
-    --   vim.api.nvim_exec(
-    --     [[
-    --         autocmd vimenter * ++nested colorscheme nightfox
-    --       ]],
-    --     false
-    --   )
-    -- end
   }
-  -- not working
-  -- {
-  --   "peitalin/vim-jsx-typescript",
-  --   after = {"nvim-treesitter"},
-  -- }
-  -- {
-  --   "nvim-treesitter/playground",
-  --   after = {"nvim-treesitter"},
-  -- }
-  -- use {
-  --   "RRethy/nvim-treesitter-textsubjects", -- adds smart text objects
-  --   after = {"nvim-treesitter"},
-  --   config = function()
-  --     -- require'nvim-treesitter.configs'.setup {
-  --     --     textsubjects = {
-  --     --         enable = true,
-  --     --         keymaps = {
-  --     --             ['.'] = 'textsubjects-smart',
-  --     --             [';'] = 'textsubjects-container-outer',
-  --     --         }
-  --     --     },
-  --     -- }
-  --   end
-  -- }
+
   use {
     "rlane/pounce.nvim",
     event = "BufRead",
@@ -304,16 +245,14 @@ return packer.startup(function(use)
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   use { "tpope/vim-scriptease" } -- add :Verbose map etc
   use { 'junegunn/fzf' }
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function()
-    -- require('bqf').setup({ magic_window = false })
-  end
+  use {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    config = function()
+      -- magic float window is bugging out
+      require('bqf').setup({ magic_window = false })
+    end
   }
-  -- { 'tpope/vim-fugitive' }
-
-  -- quickfix buffer is now modifiable, :w triggers a replacement, :write writes the buffer
-  -- use { 'stefandtw/quickfix-reflector.vim' }
-
-  -- use { 'ggVGc/vim-fuzzysearch' }
 
   use {
     'weilbith/nvim-code-action-menu',
@@ -329,21 +268,11 @@ return packer.startup(function(use)
       vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
     end
   }
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
 
-  -- remove once treesitter issue has been fixed: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
-  use { 'elixir-editors/vim-elixir' }
+  -- should be fixed by now: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
+  -- use { 'elixir-editors/vim-elixir' }
 
+  -- meh
   -- use {
   --   "github/copilot.vim",
   -- }
