@@ -51,21 +51,21 @@ return packer.startup(function(use)
     use { "folke/which-key.nvim" }
 
     -- cmp plugins
-    use { "hrsh7th/nvim-cmp", event = "VimEnter" } -- The completion plugin
+    use { "hrsh7th/nvim-cmp" } -- The completion plugin
+    use { "hrsh7th/cmp-nvim-lsp" }
     use { "hrsh7th/cmp-buffer", event = "VimEnter" } -- buffer completions
     use { "hrsh7th/cmp-path", event = "VimEnter" } -- path completions
     use { "hrsh7th/cmp-cmdline", event = "VimEnter" } -- cmdline completions
     use { "saadparwaiz1/cmp_luasnip", event = "VimEnter" } -- snippet completions
-    use { "hrsh7th/cmp-nvim-lsp", event = "VimEnter" }
 
     -- snippets
     use { "L3MON4D3/LuaSnip", event = "VimEnter" } --snippet engine
     use { "rafamadriz/friendly-snippets", event = "VimEnter" } -- a bunch of snippets to use
 
     -- LSP
-    use { "neovim/nvim-lspconfig", event = "BufRead" } -- enable LSP
-    use { "williamboman/nvim-lsp-installer", event = "VimEnter" } -- simple to use language server installer
-    use { "tamago324/nlsp-settings.nvim", event = "VimEnter" } -- language server settings defined in json for
+    use { "neovim/nvim-lspconfig" } -- enable LSP
+    use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
+    use { "tamago324/nlsp-settings.nvim" } -- language server settings defined in json for
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
 
     -- Telescope
@@ -166,7 +166,7 @@ return packer.startup(function(use)
     }
     use {
         "jose-elias-alvarez/nvim-lsp-ts-utils",
-        ft = { "typescript", "typescriptreact" },
+        -- ft = { "typescript", "typescriptreact" },
         requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim" },
     }
     --    -- {
@@ -249,7 +249,7 @@ return packer.startup(function(use)
     use { 'editorconfig/editorconfig-vim' }
 
     -- should be fixed by now: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
-    use { 'elixir-editors/vim-elixir' }
+    -- use { 'elixir-editors/vim-elixir' }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
