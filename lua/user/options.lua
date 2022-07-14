@@ -34,8 +34,8 @@ local options = {
     sidescrolloff = 8,
     guifont = "monospace:h17", -- the font used in graphical neovim applications
     colorcolumn = "80",
-    -- bg = "dark",
-    bg = "light",
+    bg = "dark",
+    -- bg = "light",
 }
 
 vim.opt.shortmess:append "c"
@@ -44,13 +44,13 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-        vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorline same color as colorcolumn
-    end,
-    desc = "Link ColorColumn and CursorLine highlight on ColorScheme change",
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--     pattern = "*",
+--     callback = function()
+--         vim.api.nvim_command("highlight! link ColorColumn CursorLine") -- make cursorline same color as colorcolumn
+--     end,
+--     desc = "Link ColorColumn and CursorLine highlight on ColorScheme change",
+-- })
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
