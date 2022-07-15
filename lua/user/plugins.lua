@@ -53,14 +53,14 @@ return packer.startup(function(use)
     -- cmp plugins
     use { "hrsh7th/nvim-cmp" } -- The completion plugin
     use { "hrsh7th/cmp-nvim-lsp" }
-    use { "hrsh7th/cmp-buffer", event = "VimEnter" } -- buffer completions
-    use { "hrsh7th/cmp-path", event = "VimEnter" } -- path completions
-    use { "hrsh7th/cmp-cmdline", event = "VimEnter" } -- cmdline completions
-    use { "saadparwaiz1/cmp_luasnip", event = "VimEnter" } -- snippet completions
+    use { "hrsh7th/cmp-buffer" } --, event = "VimEnter" } -- buffer completions
+    use { "hrsh7th/cmp-path" } -- , event = "VimEnter" } -- path completions
+    use { "hrsh7th/cmp-cmdline" } --, event = "VimEnter" } -- cmdline completions
+    use { "saadparwaiz1/cmp_luasnip" } --, event = "VimEnter" } -- snippet completions
 
     -- snippets
-    use { "L3MON4D3/LuaSnip", event = "VimEnter" } --snippet engine
-    use { "rafamadriz/friendly-snippets", event = "VimEnter" } -- a bunch of snippets to use
+    use { "L3MON4D3/LuaSnip" } --, event = "VimEnter" } --snippet engine
+    use { "rafamadriz/friendly-snippets" } --, event = "VimEnter" } -- a bunch of snippets to use
 
     -- LSP
     use { "neovim/nvim-lspconfig" } -- enable LSP
