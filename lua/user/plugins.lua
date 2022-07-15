@@ -77,17 +77,17 @@ return packer.startup(function(use)
         run = ":TSUpdate",
     }
     use {
-        'RRethy/nvim-treesitter-textsubjects',
+        "RRethy/nvim-treesitter-textsubjects",
         after = "nvim-treesitter",
         config = function()
-            require('nvim-treesitter.configs').setup {
+            require("nvim-treesitter.configs").setup {
                 textsubjects = {
                     enable = true,
-                    prev_selection = ',', -- (Optional) keymap to select the previous selection
+                    prev_selection = ",", -- (Optional) keymap to select the previous selection
                     keymaps = {
-                        ['.'] = 'textsubjects-smart',
-                        [';'] = 'textsubjects-container-outer',
-                        ['i;'] = 'textsubjects-container-inner',
+                        ["."] = "textsubjects-smart",
+                        [";"] = "textsubjects-container-outer",
+                        ["i;"] = "textsubjects-container-inner",
                     },
                 },
             }
@@ -97,11 +97,11 @@ return packer.startup(function(use)
     use { "lewis6991/gitsigns.nvim", event = "VimEnter" }
     use { "tpope/vim-fugitive", event = "VimEnter" }
 
-    use { "tpope/vim-unimpaired", event = 'VimEnter' } -- extra mappings like [q for quickfix navigations
-    use { "tpope/vim-repeat", event = 'BufModifiedSet' } -- repeat plugin maps as a whole
+    use { "tpope/vim-unimpaired", event = "VimEnter" } -- extra mappings like [q for quickfix navigations
+    use { "tpope/vim-repeat", event = "BufModifiedSet" } -- repeat plugin maps as a whole
     use { "tpope/vim-abolish", event = "CmdlineEnter" } -- replace variations of lower/upper case
-    use { "machakann/vim-sandwich", event = "VimEnter" } --, event = 'CursorMoved' } -- better add, replace, delete surrounds
-    use { "ntpeters/vim-better-whitespace", event = "VimEnter" } --, event = 'CursorMoved' } -- highlight trailing whitespaces
+    use { "machakann/vim-sandwich", event = "VimEnter" } --, event = "CursorMoved" } -- better add, replace, delete surrounds
+    use { "ntpeters/vim-better-whitespace", event = "VimEnter" } --, event = "CursorMoved" } -- highlight trailing whitespaces
     -- comments for combined syntaxes like jsx / tsx
     use {
         "JoosepAlviste/nvim-ts-context-commentstring",
@@ -112,26 +112,26 @@ return packer.startup(function(use)
                 return
             end
 
-            require 'nvim-treesitter.configs'.setup {
+            require "nvim-treesitter.configs".setup {
                 context_commentstring = {
                     enable = true,
                     enable_autocmd = false,
                 }
             }
 
-            require('Comment').setup {
+            require("Comment").setup {
                 pre_hook = function(ctx)
-                    local U = require 'Comment.utils'
+                    local U = require "Comment.utils"
 
                     local location = nil
                     if ctx.ctype == U.ctype.block then
-                        location = require('ts_context_commentstring.utils').get_cursor_location()
+                        location = require("ts_context_commentstring.utils").get_cursor_location()
                     elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                        location = require('ts_context_commentstring.utils').get_visual_start_location()
+                        location = require("ts_context_commentstring.utils").get_visual_start_location()
                     end
 
-                    return require('ts_context_commentstring.internal').calculate_commentstring {
-                        key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+                    return require("ts_context_commentstring.internal").calculate_commentstring {
+                        key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
                         location = location,
                     }
                 end,
@@ -161,7 +161,7 @@ return packer.startup(function(use)
         ft = { "typescript", "typescriptreact" },
         after = { "nvim-treesitter" },
         config = function()
-            require('nvim-ts-autotag').setup()
+            require("nvim-ts-autotag").setup()
         end
     }
     use {
@@ -222,7 +222,7 @@ return packer.startup(function(use)
             vim.api.nvim_set_keymap("n", "s", "<cmd>Pounce<CR>", {})
             vim.api.nvim_set_keymap("n", "S", "<cmd>PounceRepeat<CR>", {})
             -- vim.api.nvim_set_keymap("v", "s", "<cmd>Pounce<CR>", {})
-            -- vim.api.nvim_set_keymap("o", "gs", "<cmd>Pounce<CR>", {}) -- 's' is used by vim-surround
+            -- vim.api.nvim_set_keymap("o", "gs", "<cmd>Pounce<CR>", {}) -- "s" is used by vim-surround
         end,
     }
     use { "beauwilliams/focus.nvim",
@@ -230,26 +230,35 @@ return packer.startup(function(use)
         event = "VimEnter"
     }
     use { "tpope/vim-scriptease", opt = true } -- add :Verbose map etc
-    use { 'junegunn/fzf', event = "VimEnter" }
+    use { "junegunn/fzf", event = "VimEnter" }
 
     use {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
+        "weilbith/nvim-code-action-menu",
+        cmd = "CodeActionMenu",
         config = function()
             vim.g.code_action_menu_window_border = "rounded"
             vim.g.code_action_menu_show_details = false
             vim.g.code_action_menu_show_diff = true
         end,
     }
-    use { 'kosayoda/nvim-lightbulb',
+    use { "kosayoda/nvim-lightbulb",
         config = function()
-            vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+            vim.cmd [[autocmd CursorHold,CursorHoldI * lua require"nvim-lightbulb".update_lightbulb()]]
         end
     }
-    use { 'editorconfig/editorconfig-vim' }
+    use { "editorconfig/editorconfig-vim" }
+
+    use {
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+        config = function()
+            -- magic float window is bugging out
+            require("bqf").setup({ magic_window = false })
+        end
+    }
 
     -- should be fixed by now: https://github.com/nvim-treesitter/nvim-treesitter/issues/1957
-    -- use { 'elixir-editors/vim-elixir' }
+    -- use { "elixir-editors/vim-elixir" }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
