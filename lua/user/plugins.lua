@@ -38,7 +38,7 @@ return packer.startup(function(use)
     use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
     use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
     use { "windwp/nvim-autopairs", event = "InsertEnter" } -- Autopairs, integrates with both cmp and treesitter
-    use { "numToStr/Comment.nvim", event = "VimEnter" } -- Easily comment stuff
+    use { "numToStr/Comment.nvim" } --, event = "VimEnter" } -- Easily comment stuff
     use { "kyazdani42/nvim-tree.lua", requires = {
         "kyazdani42/nvim-web-devicons"
     } }
@@ -105,6 +105,7 @@ return packer.startup(function(use)
     -- comments for combined syntaxes like jsx / tsx
     use {
         "JoosepAlviste/nvim-ts-context-commentstring",
+        after = "Comment.nvim",
         config = function()
             local present, ts_config = pcall(require, "nvim-treesitter.configs")
             if not present then
@@ -167,33 +168,33 @@ return packer.startup(function(use)
     use {
         "jose-elias-alvarez/nvim-lsp-ts-utils",
         -- ft = { "typescript", "typescriptreact" },
-        requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim" },
+        requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "jose-elias-alvarez/null-ls.nvim" }
     }
-    --    -- {
-    --    --   "folke/trouble.nvim",
-    --    --   requires = "kyazdani42/nvim-web-devicons",
-    --    --   config = function()
-    --    --     require("trouble").setup {}
-    --    --     vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --     vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --     vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --     vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --     vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --     vim.api.nvim_set_keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-    --    --       {silent = true, noremap = true}
-    --    --     )
-    --    --   end
-    --    -- }
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {}
+            vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+                { silent = true, noremap = true }
+            )
+            vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
+                { silent = true, noremap = true }
+            )
+            vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
+                { silent = true, noremap = true }
+            )
+            vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+                { silent = true, noremap = true }
+            )
+            vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+                { silent = true, noremap = true }
+            )
+            vim.api.nvim_set_keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+                { silent = true, noremap = true }
+            )
+        end
+    }
 
     --    -- coloschemes
 
@@ -213,23 +214,41 @@ return packer.startup(function(use)
         end
         -- after = { "nvim-treesitter" },
     }
+    use {
+        "nanozuki/tabby.nvim",
+        config = function() require("tabby").setup() end
+    }
 
     use {
         "rlane/pounce.nvim",
         event = "VimEnter",
         config = function()
             -- require("pounce").setup({})
-            vim.api.nvim_set_keymap("n", "s", "<cmd>Pounce<CR>", {})
-            vim.api.nvim_set_keymap("n", "S", "<cmd>PounceRepeat<CR>", {})
-            -- vim.api.nvim_set_keymap("v", "s", "<cmd>Pounce<CR>", {})
-            -- vim.api.nvim_set_keymap("o", "gs", "<cmd>Pounce<CR>", {}) -- "s" is used by vim-surround
+            vim.api.nvim_set_keymap("n", "f", "<cmd>Pounce<CR>", {})
+            vim.api.nvim_set_keymap("n", "F", "<cmd>PounceRepeat<CR>", {})
+            vim.api.nvim_set_keymap("v", "f", "<cmd>Pounce<CR>", {})
+            vim.api.nvim_set_keymap("o", "fs", "<cmd>Pounce<CR>", {}) -- "s" is used by vim-surround
         end,
     }
+    -- -- https://github.com/phaazon/hop.nvim/issues/261
+    -- use {
+    --     "phaazon/hop.nvim",
+    --     branch = "v2", -- optional but strongly recommended
+    --     config = function()
+    --         -- you can configure Hop the way you like here; see :h hop-config
+    --         local hop = require "hop"
+    --         hop.setup {}
+    --
+    --         -- place this in one of your configuration file(s)
+    --         vim.api.nvim_set_keymap("", "f", "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>", {})
+    --         vim.api.nvim_set_keymap("", "F", "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>", {})
+    --     end
+    -- }
     use { "beauwilliams/focus.nvim",
         config = function() require("focus").setup() end,
         event = "VimEnter"
     }
-    use { "tpope/vim-scriptease", opt = true } -- add :Verbose map etc
+    use { "tpope/vim-scriptease", opt = true, cmd = { "Verbose", "Messages" } } -- add :Verbose map etc
     use { "junegunn/fzf", event = "VimEnter" }
 
     use {
