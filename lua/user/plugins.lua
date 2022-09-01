@@ -97,7 +97,7 @@ return packer.startup(function(use)
     use { "lewis6991/gitsigns.nvim", event = "VimEnter" }
     use { "tpope/vim-fugitive", event = "VimEnter" }
 
-    use { "tpope/vim-unimpaired", event = "VimEnter" } -- extra mappings like [q for quickfix navigations
+    -- use { "tpope/vim-unimpaired", event = "VimEnter" } -- extra mappings like [q for quickfix navigations
     use { "tpope/vim-repeat", event = "BufModifiedSet" } -- repeat plugin maps as a whole
     use { "tpope/vim-abolish", event = "CmdlineEnter" } -- replace variations of lower/upper case
     use { "machakann/vim-sandwich", event = "VimEnter" } --, event = "CursorMoved" } -- better add, replace, delete surrounds
@@ -198,7 +198,12 @@ return packer.startup(function(use)
 
     --    -- coloschemes
 
-    use { "haystackandroid/stellarized" }
+    use {
+        "haystackandroid/stellarized",
+        -- config = function()
+        --     vim.cmd [[colorscheme stellarized]]
+        -- end
+    }
     use {
         "folke/tokyonight.nvim",
         -- after = { "nvim-treesitter" },
@@ -211,12 +216,16 @@ return packer.startup(function(use)
         "EdenEast/nightfox.nvim",
         config = function()
             vim.cmd [[colorscheme nightfox]]
+            -- vim.cmd [[colorscheme dayfox]]
         end
         -- after = { "nvim-treesitter" },
     }
     use {
         "nanozuki/tabby.nvim",
-        config = function() require("tabby").setup() end
+        event = "VimEnter",
+        config = function()
+            require("tabby").setup()
+        end
     }
 
     use {
@@ -224,10 +233,10 @@ return packer.startup(function(use)
         event = "VimEnter",
         config = function()
             -- require("pounce").setup({})
-            vim.api.nvim_set_keymap("n", "f", "<cmd>Pounce<CR>", {})
-            vim.api.nvim_set_keymap("n", "F", "<cmd>PounceRepeat<CR>", {})
-            vim.api.nvim_set_keymap("v", "f", "<cmd>Pounce<CR>", {})
-            vim.api.nvim_set_keymap("o", "fs", "<cmd>Pounce<CR>", {}) -- "s" is used by vim-surround
+            vim.api.nvim_set_keymap("n", "<C-J>", "<cmd>Pounce<CR>", {})
+            -- vim.api.nvim_set_keymap("n", "F", "<cmd>PounceRepeat<CR>", {})
+            -- vim.api.nvim_set_keymap("v", "f", "<cmd>Pounce<CR>", {})
+            -- vim.api.nvim_set_keymap("o", "fs", "<cmd>Pounce<CR>", {}) -- "s" is used by vim-surround
         end,
     }
     -- -- https://github.com/phaazon/hop.nvim/issues/261

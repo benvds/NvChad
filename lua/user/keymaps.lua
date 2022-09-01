@@ -105,18 +105,18 @@ vim.api.nvim_set_keymap("v", "<leader>/", ":lua require('Comment.api').toggle_li
 
 -- Highlight on yank
 vim.api.nvim_exec(
-  [[
+    [[
     augroup YankHighlight
       autocmd!
       autocmd TextYankPost * silent! lua vim.highlight.on_yank()
     augroup end
-  ]],
-  false
+  ]] ,
+    false
 )
 
 -- Y yank until the end of line
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
 
 -- disable F1 for help, use as ESC
-vim.api.nvim_set_keymap("n", "F1", "<ESC>", {})
-vim.api.nvim_set_keymap("i", "F1", "<ESC>", {})
+vim.api.nvim_set_keymap("n", "<F1>", "<ESC>", {})
+vim.api.nvim_set_keymap("i", "<F1>", "<ESC>", {})
